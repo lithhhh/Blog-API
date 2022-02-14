@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const login = async ({ email, _password }) => {
   const emailFound = await User.findOne({ where: { email } });
-  if (!emailFound) return { code: 400, message: 'invalid fields' };
+  if (!emailFound) return { code: 400, message: 'Invalid fields' };
 
   const jwtConfigs = {
     expiresIn,
