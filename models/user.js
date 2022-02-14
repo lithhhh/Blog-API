@@ -10,6 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.findAllClean = () => User.findAll().then((us) => us.map(({ dataValues }) => dataValues));
+  User.findOneClean = (column, item) => User.findOne({ where: { [column]: item } })
+    .then(({ dataValues }) => dataValues);
 
   return User;
 };

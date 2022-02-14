@@ -1,5 +1,4 @@
-const jwt = require('jsonwebtoken');
-const { jwtConfig: { expiresIn, algorithm, pass } } = require('../utils');
+const { signToken } = require('../utils');
 const { User } = require('../models');
 require('dotenv').config();
 
@@ -10,15 +9,10 @@ const findByEmail = async (email) => User.findByEmail(email);
 const create = async ({ displayName, email, password, image }) => {
   const emailFound = await User.findOne({ where: { email } });
 
-  const jwtConfigs = {
-    expiresIn,
-    algorithm,
-  };
-
   if (emailFound) return { code: 409, message: 'User already registered' };
 
   User.create({ displayName, email, password, image });
-  const token = jwt.sign({ displayName }, pass, jwtConfigs);
+  const token = signToken({ displayName }, '6h');
 
   return { code: 201, result: token };
 };

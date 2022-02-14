@@ -1,4 +1,4 @@
 const httpCodes = require('./http-codes');
-const jwtConfig = require('./jwtConfigs');
+const { signToken, verifyToken } = require('./jwtConfigs');
 
-module.exports = { httpCodes, jwtConfig };
+module.exports = { httpCodes, signToken, verifyToken };

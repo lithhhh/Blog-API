@@ -1,14 +1,15 @@
 const User = require('express').Router();
 const rescue = require('express-rescue');
+const verifyAuth = require('./middlewares/validateToken');
 
 const { user } = require('../services');
 const validateUser = require('./joi/userSchema');
 
-User.get('/', rescue(async (req, res) => {
+User.get('/', verifyAuth, async (req, res) => {
   const users = await user.getAll();
 
   res.status(200).json(users);
-}));
+});
 
 User.post('/', rescue(async (req, res) => {
   validateUser(req.body);
