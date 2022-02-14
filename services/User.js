@@ -9,6 +9,7 @@ const findByEmail = async (email) => User.findByEmail(email);
 
 const create = async ({ displayName, email, password, image }) => {
   const emailFound = await User.findOne({ where: { email } });
+
   const jwtConfigs = {
     expiresIn,
     algorithm,
@@ -18,7 +19,6 @@ const create = async ({ displayName, email, password, image }) => {
 
   User.create({ displayName, email, password, image });
   const token = jwt.sign({ displayName }, pass, jwtConfigs);
-  console.log(token);
 
   return { code: 201, result: token };
 };

@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyparser = require('body-parser');
-const { User } = require('./controller');
+const { User, Login } = require('./controller');
 const { joiError } = require('./controller/middlewares');
 require('dotenv').config();
 
@@ -16,6 +16,7 @@ app.get('/', (request, response) => {
 });
 
 app.use('/user', User);
+app.use('/login', Login);
 app.use(joiError);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
