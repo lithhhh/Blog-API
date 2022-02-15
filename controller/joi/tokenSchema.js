@@ -1,11 +1,10 @@
 const Joi = require('joi');
 
 const schema = Joi.object({
-  authorization: Joi.string().empty().min(1).required()
+  authorization: Joi.string().min(1).required()
   .messages({
     'any.required': 'Expired or invalid token',
     'string.min': 'Expired or invalid token',
-    'string.empty': 'Expired or invalid token',
   }),
 });
 
