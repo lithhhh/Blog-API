@@ -23,6 +23,8 @@ const findAllGet = async () => {
     ],
   });
 
+  console.log(posts);
+
   return posts.map((c) => c.dataValues);
 };
 
