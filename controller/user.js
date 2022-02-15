@@ -11,6 +11,14 @@ User.get('/', verifyAuth, async (req, res) => {
   res.status(200).json(users);
 });
 
+User.get('/:id', verifyAuth, async (req, res) => {
+  const { id } = req.params;
+  const { result, code, message } = await user.getById(id);
+  if (message) return res.status(code).json({ message });
+
+  res.status(code).json(result);
+});
+
 User.post('/', rescue(async (req, res) => {
   validateUser(req.body);
 
