@@ -8,8 +8,6 @@ module.exports = (e, req, res, next) => {
 
   const [key] = e.details[0].path;
   const { message } = e.details[0];
-  console.log('key: ', key);
-  console.log('message: ', message);
 
   return res
     .status(key === 'authorization' ? HTTP_UNAUTHORIZED : HTTP_BAD_REQUEST)

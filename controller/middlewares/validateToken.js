@@ -20,6 +20,6 @@ module.exports = rescue(async (req, res, next) => {
     next();
   } catch (e) {
     console.error(e);
-    return res.status(HTTP_UNAUTHORIZED).json({ message: 'Token not found' });
+    return res.status(HTTP_UNAUTHORIZED).json({ message: 'Expired or invalid token' });
   }
 });
