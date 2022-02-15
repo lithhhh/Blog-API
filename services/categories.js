@@ -6,4 +6,6 @@ const create = async ({ name }) => {
   return { code: 201, result: dataValues };
 };
 
-module.exports = { create };
+const getAll = async () => Category.findAllClean();
+
+module.exports = { create, getAll };

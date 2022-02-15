@@ -13,4 +13,10 @@ Category.post('/', verifyAuth, rescue(async (req, res) => {
   return res.status(code).json(result);
 }));
 
+Category.get('/', verifyAuth, rescue(async (req, res) => {
+  const data = await category.getAll();
+
+  return res.status(200).json(data);
+}));
+
 module.exports = Category;

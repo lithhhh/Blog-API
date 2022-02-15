@@ -6,5 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Categories',
   });
 
+  Category.findAllClean = () => Category.findAll()
+  .then((us) => us.map(({ dataValues }) => dataValues));
+
   return Category;
 };
