@@ -6,7 +6,7 @@ const getAll = async () => User.findAllClean();
 
 const getById = async (id) => {
   const user = await User.findByPk(id);
-  if (!user) return { message: 'User does not exists', code: 404 };
+  if (!user) return { message: 'User does not exist', code: 404 };
 
   return { result: user, code: 200 };
 };
