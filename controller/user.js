@@ -28,8 +28,8 @@ User.post('/', rescue(async (req, res) => {
   return res.status(201).json({ result });
 }));
 
-User.delete('/:id', verifyAuth, rescue(async (req, res) => {
-  const { id } = req.params;
+User.delete('/me', verifyAuth, rescue(async (req, res) => {
+  const { id } = req.userVerified;
   await user.deleteUser(id);
 
   return res.status(204).json();
