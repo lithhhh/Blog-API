@@ -18,9 +18,19 @@ BlogPosts.post('/', verifyAuth, checkCategories, rescue(async (req, res) => {
 }));
 
 BlogPosts.get('/', verifyAuth, rescue(async (req, res) => {
-  const data = await BlogPost.findAllGet();
-  console.log(data);
-  return res.status(200).json(data);
+  const { code, result } = await BlogPost.findAll();
+
+  return res.status(code).json(result);
+}));
+
+BlogPosts.get('/:id', verifyAuth, rescue(async (req, res) => {
+  const { id } = req.params;
+
+  const { code, message, result } = await BlogPost.findById(id);
+
+  if (message) return res.status(code).json({ message });
+
+  return res.status(code).json(result);
 }));
 
 module.exports = BlogPosts;

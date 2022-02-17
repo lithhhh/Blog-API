@@ -12,9 +12,7 @@ const create = async (title, content, userId) => {
         };
 };
 
-const findAll = () => Category.findAllClean();
-
-const findAllGet = async () => {
+const findAll = async () => {
   const posts = await BlogPost.findAll({
     attributes: { exclude: ['UserId'] },
     include: [
@@ -23,7 +21,22 @@ const findAllGet = async () => {
     ],
   });
 
-  return posts.map((c) => c.dataValues);
+  return { code: 200, result: posts.map(({ dataValues }) => dataValues) };
 };
 
-module.exports = { create, findAll, findAllGet };
+ const findById = async (id) => {
+  const post = await BlogPost.findOne({
+    where: { id },
+    attributes: { exclude: ['UserId'] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  
+  if (!post) return { code: 404, message: 'Post does not exist' };
+
+  return { code: 200, result: post.dataValues };
+};
+
+module.exports = { create, findAll, findById };
