@@ -1,3 +1,5 @@
 const joiError = require('./joiError');
+const checkAuthor = require('./checkAuthor');
+const verifyAuth = require('./validateToken');
 
-module.exports = { joiError };
+module.exports = { joiError, verifyAuth, checkAuthor };

@@ -1,5 +1,5 @@
 const rescue = require('express-rescue');
-const { BlogPost } = require('../../services');
+const { category } = require('../../services');
 
 const checkCategories = rescue(async (req, res, next) => {
   const { categoryIds } = req.body;
@@ -10,11 +10,10 @@ const checkCategories = rescue(async (req, res, next) => {
       .json({ message: '"categoryIds" is required' });
   }
 
-  const categories = await BlogPost.findAll();
+  const categories = await category.getAll();
   const arrCategories = categories.map(({ id }) => id);
 
   const check = categoryIds.every((cat) => arrCategories.includes(cat));
-  console.log(check);
 
   if (!check) {
     return res

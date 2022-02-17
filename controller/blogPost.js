@@ -1,10 +1,11 @@
 const BlogPosts = require('express').Router();
 const rescue = require('express-rescue');
 const { BlogPost } = require('../services');
+const { verifyAuth, checkAuthor } = require('./middlewares');
 
-const verifyAuth = require('./middlewares/validateToken');
 const validateBlog = require('./joi/blogPostSchema');
 const checkCategories = require('./middlewares/verifyCategories');
+const checkUpdate = require('./joi/updateBlogPostSchema');
 
 BlogPosts.post('/', verifyAuth, checkCategories, rescue(async (req, res) => {
   validateBlog(req.body);
@@ -25,10 +26,20 @@ BlogPosts.get('/', verifyAuth, rescue(async (req, res) => {
 
 BlogPosts.get('/:id', verifyAuth, rescue(async (req, res) => {
   const { id } = req.params;
+  console.log(req.userVerified);
 
   const { code, message, result } = await BlogPost.findById(id);
 
   if (message) return res.status(code).json({ message });
+
+  return res.status(code).json(result);
+}));
+
+BlogPosts.put('/:id', verifyAuth, checkAuthor, rescue(async (req, res) => {
+  checkUpdate(req.body);
+  const { id } = req.params;
+
+  const { code, result } = await BlogPost.updatePost(req.body, id);
 
   return res.status(code).json(result);
 }));
