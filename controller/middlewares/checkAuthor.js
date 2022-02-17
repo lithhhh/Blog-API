@@ -8,7 +8,7 @@ const checkAuthor = rescue(async (req, res, next) => {
 
   const { result } = await BlogPost.findById(idPost);
 
-  if (!result) return res.status(404).json({ message: 'Post does exist' });
+  if (!result) return res.status(404).json({ message: 'Post does not exist' });
   if (result.userId !== id) return res.status(Unauthorized).json({ message: 'Unauthorized user' });
 
   next();
