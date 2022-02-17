@@ -31,7 +31,6 @@ const findAll = async () => {
       { model: Category, as: 'categories', through: { attributes: [] } },
     ],
   });
-  console.log(post.dataValues.categories[0].dataValues);
 
   if (!post) return { code: 404, message: 'Post does not exist' };
 
@@ -51,4 +50,6 @@ const updatePost = async ({ title, content }, id) => {
   return { code: 200, result: post };
 };
 
-module.exports = { create, findAll, findById, updatePost };
+const deletePost = async (id) => BlogPost.destroy({ where: { id } });
+
+module.exports = { create, findAll, findById, updatePost, deletePost };

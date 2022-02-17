@@ -44,4 +44,12 @@ BlogPosts.put('/:id', verifyAuth, checkAuthor, rescue(async (req, res) => {
   return res.status(code).json(result);
 }));
 
+BlogPosts.delete('/:id', verifyAuth, checkAuthor, rescue(async (req, res) => {
+  const { id } = req.params;
+
+  await BlogPost.deletePost(id);
+
+  return res.status(204).json();
+}));
+
 module.exports = BlogPosts;
