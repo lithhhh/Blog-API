@@ -10,11 +10,6 @@ const app = express();
 
 app.use(bodyparser.json());
 
-// não remova esse endpoint, e para o avaliador funcionar
-app.get('/', (request, response) => {
-  response.send();
-});
-
 app.use('/user', User);
 app.use('/login', Login);
 app.use('/categories', Category);
