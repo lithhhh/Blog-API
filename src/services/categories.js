@@ -1,4 +1,4 @@
-const { Category } = require('../models');
+const { Category } = require('../database/models');
 
 const create = async ({ name }) => {
   const { dataValues } = await Category.create({ name });

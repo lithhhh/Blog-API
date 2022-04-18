@@ -1,7 +1,7 @@
 const rescue = require('express-rescue');
 const { verifyToken } = require('../../utils');
 const validateToken = require('../joi/tokenSchema');
-const { User } = require('../../models');
+const { User } = require('../../database/models');
 const { HTTP_UNAUTHORIZED } = require('../../utils/http-codes');
 
 module.exports = rescue(async (req, res, next) => {

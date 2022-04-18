@@ -1,5 +1,5 @@
 const { signToken } = require('../utils');
-const { User } = require('../models');
+const { User } = require('../database/models');
 require('dotenv').config();
 
 const getAll = async () => User.findAllClean();
