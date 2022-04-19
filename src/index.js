@@ -17,3 +17,5 @@ app.use('/post', Posts);
 app.use(joiError);
 
 app.listen(PORT, () => console.log(`ouvindo porta ${PORT}!`));
+
+module.export = { app };
