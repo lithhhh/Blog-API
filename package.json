@@ -26,8 +26,10 @@
     "seed": "npx sequelize-cli db:seed:all $",
     "debug": "nodemon index.js",
     "lint": "eslint --no-inline-config --no-error-on-unmatched-pattern -c .eslintrc.json .",
-    "test": "DEBUG=true nyc mocha ./tests/**/*.js -t 10000 --exit",
-    "test:coverage": "nyc npm run test"
+    "test": "DEBUG=true nyc --all mocha ./tests/**/*.js -t 10000 --exit",
+    "compose:up": "docker-compose up --build",
+    "compose:down": "docker-compose down",
+    "testwatch": "nodemon index.js --exec \"mocha --recursive\""
   },
   "devDependencies": {
     "eslint": "6.8.0",
@@ -35,7 +37,6 @@
     "eslint-plugin-import": "2.22.1",
     "nodemon": "^2.0.15",
     "nyc": "^15.1.0",
-    "sequelize-cli": "6.2.0",
-    "supertest": "^4.0.2"
+    "sequelize-cli": "6.2.0"
   }
 }

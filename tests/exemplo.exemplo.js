@@ -1,16 +1,16 @@
 const sinon = require('sinon');
-const request = require('supertest');
+// const request = require('supertest');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 
 const { app } = require('../src/index');
-const { Response } = require('superagent');
+// const { Response } = require('superagent');
 
-chai.use(chaiHttp);
+// chai.use(chaiHttp);
 
-request(app).get
+// request(app).get
 
-describe('Seu teste', () => {
+// describe('Seu teste', () => {
   /**
    * Exemplo do uso de stubs com tipos
    */
@@ -36,8 +36,4 @@ describe('Seu teste', () => {
 
   //   expect(...)
   // });
-
-  it('Seu sub-teste', () => {
-    expect(false).to.be.eq(true);
-  });
-});
+// });
