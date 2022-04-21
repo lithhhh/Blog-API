@@ -2,7 +2,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 const chai = require('chai');
-
+const { User } = require('../../src/database/models');
 const { user } = require('../assets/user');
 
 /* 
@@ -25,6 +25,12 @@ chai.should();
 
 describe('testes da rota /user (POST)', () => {
   describe('casos de erro', () => {
+    before(() => {
+      
+    });
+
+    after(() => sinon.restore());
+
     it('quando não informamos nenhum dado no body', async () => {
       const { status } = await requestTest({});
   
@@ -168,30 +174,41 @@ describe('testes da rota /user (POST)', () => {
       expect(body.message).to.be.equal('"image" must be a string');
       expect(status).to.be.equal(400);
     });
+
+    before(() => sinon.stub(User, 'findOne').resolves(true));
+    after(() => sinon.restore());
+
+    it('quando já há um email registrado', async () => {
+      const { status, body } = await requestTest({
+        "displayName": "diana zambrusk",
+        "email": "example@email.com",
+        "password": "123456",
+        "image": "123.jpg"
+      });
+
+      expect(body).to.have.property('message');
+      expect(body.message).to.be.equal('User already registered');
+      expect(status).to.be.equal(409);
+    });
   });
-  /**
-   * Exemplo do uso de stubs com tipos
-   */
 
-  // let chaiHttpResponse: Response;
+    describe('caso de acerto', () => {
+      before(() => {
+        sinon.stub(User, 'findOne').resolves(false);
+        sinon.stub(User, 'create').resolves();
+      });
+      after(() => sinon.restore());
 
-  // before(async () => {
-  //   sinon
-  //     .stub(Example, "findOne")
-  //     .resolves({
-  //       ...<Seu mock>
-  //     } as Example);
-  // });
+      it('usuário é cadastrado com sucesso', async () => {
+        const { status, body } = await requestTest({
+          "displayName": "diana zambrusk",
+          "email": "example@email.com",
+          "password": "123456",
+          "image": "123.jpg"
+        });
 
-  // after(()=>{
-  //   (Example.findOne as sinon.SinonStub).restore();
-  // })
-
-  // it('...', async () => {
-  //   chaiHttpResponse = await chai
-  //      .request(app)
-  //      ...
-
-  //   expect(...)
-  // });
+        expect(body).to.have.property('result');
+        expect(status).to.be.equal(201);
+      });
+  });
 });
