@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 
-const { app } = require('../src/index');
+const { app } = require('../../src/index');
 // const { Response } = require('superagent');
 
 // chai.use(chaiHttp);
