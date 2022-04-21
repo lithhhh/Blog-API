@@ -3,21 +3,12 @@ const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 const chai = require('chai');
 const { User } = require('../../src/database/models');
-const { user } = require('../assets/user');
+const requestTest = require('../assets/utils');
 
 /* 
   * /users
   * testar os erros de body
 */
-
-const requestTest = async (json) => {
-  const { status, body } = await chai
-  .request('http://localhost:3000')
-  .post('/user')
-  .send(json);
-
-  return { status, body };
-}
 
 
 chai.use(chaiHttp);
@@ -32,7 +23,7 @@ describe('testes da rota /user (POST)', () => {
     after(() => sinon.restore());
 
     it('quando não informamos nenhum dado no body', async () => {
-      const { status } = await requestTest({});
+      const { status } = await requestTest({}, '/user');
   
       expect(status).to.be.equal(400);
     });
@@ -42,7 +33,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "exemplo@email.com",
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"displayName" is required');
@@ -55,7 +46,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "exemplo@email.com",
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"displayName" must be a string');
@@ -68,7 +59,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "exemplo@email.com",
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"displayName" length must be at least 8 characters long');
@@ -80,7 +71,7 @@ describe('testes da rota /user (POST)', () => {
         "displayName": "diana zambrusk",
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"email" is required');
@@ -93,7 +84,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "diana email",
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"email" must be a valid email');
@@ -106,7 +97,7 @@ describe('testes da rota /user (POST)', () => {
         "email": 10,
         "password": "123456",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"email" must be a string');
@@ -118,7 +109,7 @@ describe('testes da rota /user (POST)', () => {
         "displayName": "diana zambrusk",
         "email": "example@email.com",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"password" is required');
@@ -131,7 +122,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "example@email.com",
         "password": 123456,
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"password" must be a string');
@@ -144,7 +135,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "example@email.com",
         "password": "1234567",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"password" length must be 6 characters long');
@@ -155,7 +146,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "example@email.com",
         "password": "12345",
         "image": "imagem.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"password" length must be 6 characters long');
@@ -168,7 +159,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "example@email.com",
         "password": "123456",
         "image": 123
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('"image" must be a string');
@@ -184,7 +175,7 @@ describe('testes da rota /user (POST)', () => {
         "email": "example@email.com",
         "password": "123456",
         "image": "123.jpg"
-      });
+      }, '/user');
 
       expect(body).to.have.property('message');
       expect(body.message).to.be.equal('User already registered');
@@ -205,7 +196,7 @@ describe('testes da rota /user (POST)', () => {
           "email": "example@email.com",
           "password": "123456",
           "image": "123.jpg"
-        });
+        }, '/user');
 
         expect(body).to.have.property('result');
         expect(status).to.be.equal(201);
