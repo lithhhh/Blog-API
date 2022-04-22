@@ -3,13 +3,13 @@ const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 const chai = require('chai');
 const { User } = require('../../src/database/models');
-const requestTest = require('../assets/utils');
+const { requestTest } = require('../assets/utils');
 
 
 chai.use(chaiHttp);
 chai.should();
 
-describe('testes da rota /login', () => {
+describe('testes da rota /login (POST)', () => {
   describe('casos de erro', () => {
     it('quando não informamos nenhum dado body', async () => {
       const { status, body } = await requestTest({}, '/login');
