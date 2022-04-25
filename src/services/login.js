@@ -1,6 +1,5 @@
 const { signToken } = require('../utils');
 const { User } = require('../database/models');
-require('dotenv').config();
 
 const login = async ({ email, _password }) => {
   const emailFound = await User.findOne({ where: { email } });

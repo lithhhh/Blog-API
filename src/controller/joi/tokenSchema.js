@@ -1,11 +1,14 @@
 const Joi = require('joi');
 
+const notFound = 'Token not found';
+
 const schema = Joi.object({
   authorization: Joi.string().min(1).empty().required()
   .messages({
-    'any.required': 'Token not found',
-    'string.empty': 'Token not found',
-    'string.min': 'Token not found',
+    'any.required': notFound,
+    'string.empty': notFound,
+    'string.min': notFound,
+    'any.string': notFound,
   }),
 });
 
