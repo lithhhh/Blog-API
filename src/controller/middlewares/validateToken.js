@@ -14,7 +14,7 @@ module.exports = rescue(async (req, res, next) => {
 
     req.userVerified = verify;
     const { id } = await User.findOneClean('email', verify.email);
-
+    
     req.userVerified.id = id;
 
     next();

@@ -8,3 +8,5 @@ const category = [
 		"name": "Escola"
 	}
 ]
+
+module.exports = category;
